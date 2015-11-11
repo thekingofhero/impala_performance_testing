@@ -1,0 +1,8 @@
+files' description:
+config.py:The configuration for our testing.We can config the cpus' frequence on the cluster,
+        the queries which will be run,even if the running times of each query.
+
+main.py:entrance of the testing .We may run "python main.py" after config.py has been configured well.
+
+main_impyla.py:entrance of the testing by ODBC 'impyla'
+
