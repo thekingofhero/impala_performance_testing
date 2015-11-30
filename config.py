@@ -2,10 +2,8 @@ import os
 def local_config():
     #HDFS DATANODE
     datanode_list = [
-                 'tracing024',
-                 'tracing025',
-                 'tracing026',
-                 'tracing027',
+                 '',
+                
                  ]
     #IMPALA CONFIG
     IMPALA_SERVER = datanode_list[0]
