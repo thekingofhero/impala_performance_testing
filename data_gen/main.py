@@ -4,13 +4,20 @@ from multiprocessing import Process
 from gen_flat_file.gen_dim_table import gen_dims
 from impala.tables import Tables
 def push():
-    hosts = local_config()['master']
-    hosts.extend(local_config()['impalad_nodes'])
+    #hosts = local_config()['master']
+    #hosts.extend(local_config()['impalad_nodes'])
+    hosts = local_config()['impalad_nodes']
     cur_path = os.path.dirname(os.path.realpath(__file__))
+    work_dir = local_config()['work_dir']
     for host in hosts:
+        #rmdir if exists
+        with os.popen("ssh %s 'test -d %s;echo $?'"%(host,work_dir)) as fp:
+            tmp = fp.read().strip('\n')
+            if tmp == '0' :
+                os.system("ssh %s 'rm -rf %s'"%(host,work_dir))
         #mkdir
-        os.system("ssh %s mkdir -p %s"%(host,local_config()['work_dir']))
-        os.system('scp -r %s/* %s:%s'%(cur_path,host,local_config()['work_dir']))
+        os.system("ssh %s mkdir -p %s"%(host,work_dir))
+        os.system('scp -r %s/* %s:%s'%(cur_path,host,work_dir))
     return hosts
     
 def hdfs_mdir():
@@ -44,8 +51,10 @@ def gen_facts(hosts):
         total_threads_num = len(hosts) * thread_count
         for i,host in enumerate(hosts):
             start_thread_id = i*thread_count + 1
-            cmd = "ssh %s 'cd %s;python gen_partition_table.py %s %s %s'"%(host,           
-                                                                            local_config()['work_dir'],
+            #PYTHONPATH needs to be set
+            cmd = "ssh %s 'cd %s && export PYTHONPATH=$PYTHONPATH:. &&python %s %s %s %s'"%(host,
+                                                            local_config()['work_dir'],
+                                                                            os.path.join('gen_flat_file','gen_partition_table.py'),
                                                                             tbl,
                                                                             str(start_thread_id),
                                                                             str(total_threads_num))
@@ -64,11 +73,11 @@ def main():
         gen_facts(hosts)
 
     #load into impala
-    tables = Tables()
-    tables.create_db()
-    tables.create_external_table()
-    tables.load_table()
-    tables.create_partition_tbl()
-    tables.load_partition_tbl_store_sales()
+    #tables = Tables()
+    #tables.create_db()
+    #tables.create_external_table()
+    #tables.load_table()
+    #tables.create_partition_tbl()
+    #tables.load_partition_tbl_store_sales()
 if __name__ == '__main__':
     main()

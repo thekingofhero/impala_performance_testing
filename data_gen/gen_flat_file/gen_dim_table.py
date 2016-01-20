@@ -8,6 +8,8 @@ def gen_dims():
     for tbl in local_config()['tpcds_tbls'].keys():
         if tbl in local_config()['partition_tbls']:
             continue
+        if tbl in local_config()['bind_tbl']:
+            continue
         print('%s is generating......'%(tbl))
         cmd = "%s \
                 -TABLE %s \

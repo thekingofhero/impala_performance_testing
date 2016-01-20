@@ -1,16 +1,13 @@
 def local_config():
     tpcds_tool_root = "tpcds-kit"
     #SF 3000 means ~1TB
-    tpcds_scale_factor = 300
+    tpcds_scale_factor =  300
     #flat file's path on hdfs
     flatfile_path_HDFS = "/user/root/tpcds-data-%s"%(tpcds_scale_factor)
-    master = ['tracing017']
-    impalad_nodes = ['tracing024',\
-             'tracing025',\
-             'tracing026',\
-             'tracing027']
+    master = ['tracing021']
+    impalad_nodes = ['tracing021',]
     work_dir = '/home/wangdewei/tpc_ds'
-    dsdgen_threads_per_node = 36
+    dsdgen_threads_per_node = 24
     #[tbl_format,compresscode]
     #currently ,tbl_format support :text/parquet
     #           compresscode support :none/snappy
@@ -31,6 +28,8 @@ def local_config():
         'store_sales':['et_store_sales'],
         'inventory':['et_inventory'],
     }
+    #tbl doesn't use
+    bind_tbl = ['inventory']
     partition_tbls = ['store_sales']
     #overwrite
     overwrite = True

@@ -94,13 +94,14 @@ class Tables:
                     where ss_sold_date_sk
                     between {0} and {1};""".format(partition_range[0], partition_range[-1])
             cmd = "impala-shell -i %s:21000 -d %s <<EOF %s \nEOF"%(local_config()['impalad_nodes'][0],self.db_name,query)
-            print (cmd)
-            t = threading.Thread(target=os.system,args=[cmd])
-            thread_list.append(t)
-            t.start()
-        for t in thread_list:
-            if t.is_alive():
-                t.join()
+            os.system(cmd)
+        #    print (cmd)
+        #    t = threading.Thread(target=os.system,args=[cmd])
+        #    thread_list.append(t)
+        #    t.start()
+        #for t in thread_list:
+        #    if t.is_alive():
+        #        t.join()
 
     def init_tbl(self):
         #create external table
