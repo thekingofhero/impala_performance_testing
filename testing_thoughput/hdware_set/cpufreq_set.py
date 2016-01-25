@@ -1,9 +1,9 @@
 import os
-from config import local_config_testing
+from config import local_config
 class CPUFreqSet:
     def __init__(self,):
-        self.impalad_nodes = local_config_testing()['impalad_nodes']
-        self.cpu_freq_dict = local_config_testing()['cpu_freq_dict']
+        self.impalad_nodes = local_config()['impalad_nodes']
+        self.cpu_freq_dict = local_config()['cpu_freq_dict']
 
     def set(self,freq):
         if self.check_cpu_stat(self.cpu_freq_dict[str(freq)]/1000):

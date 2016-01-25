@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/ssg_repos/svn_tracing/tracing/!svn/ver/5643/Projects/bigdata_modeling/cofluent/Impala/simulator_input/statistics_info
+END
+data_dist.py
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/ssg_repos/svn_tracing/tracing/!svn/ver/5643/Projects/bigdata_modeling/cofluent/Impala/simulator_input/statistics_info/data_dist.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/ssg_repos/svn_tracing/tracing/!svn/ver/5638/Projects/bigdata_modeling/cofluent/Impala/simulator_input/statistics_info/__init__.py
+END
+exchange.py
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/ssg_repos/svn_tracing/tracing/!svn/ver/5643/Projects/bigdata_modeling/cofluent/Impala/simulator_input/statistics_info/exchange.py
+END
+scan_stats.py
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/ssg_repos/svn_tracing/tracing/!svn/ver/5643/Projects/bigdata_modeling/cofluent/Impala/simulator_input/statistics_info/scan_stats.py
+END
+data_stream_sender.py
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/ssg_repos/svn_tracing/tracing/!svn/ver/5643/Projects/bigdata_modeling/cofluent/Impala/simulator_input/statistics_info/data_stream_sender.py
+END
+aggr_metrics.py
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/ssg_repos/svn_tracing/tracing/!svn/ver/5643/Projects/bigdata_modeling/cofluent/Impala/simulator_input/statistics_info/aggr_metrics.py
+END
+data_percentage.py
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/ssg_repos/svn_tracing/tracing/!svn/ver/5638/Projects/bigdata_modeling/cofluent/Impala/simulator_input/statistics_info/data_percentage.py
+END
+hj_metrics.py
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/ssg_repos/svn_tracing/tracing/!svn/ver/5643/Projects/bigdata_modeling/cofluent/Impala/simulator_input/statistics_info/hj_metrics.py
+END

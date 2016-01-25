@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/ssg_repos/svn_tracing/tracing/!svn/ver/5531/Projects/bigdata_modeling/cofluent/Impala/simulator_input/log_analysis
+END
+getDetailInfo.py
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/ssg_repos/svn_tracing/tracing/!svn/ver/5497/Projects/bigdata_modeling/cofluent/Impala/simulator_input/log_analysis/getDetailInfo.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/ssg_repos/svn_tracing/tracing/!svn/ver/5445/Projects/bigdata_modeling/cofluent/Impala/simulator_input/log_analysis/__init__.py
+END
+getImpalaInfo.py
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/ssg_repos/svn_tracing/tracing/!svn/ver/5445/Projects/bigdata_modeling/cofluent/Impala/simulator_input/log_analysis/getImpalaInfo.py
+END
+getInstanceInfo.py
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/ssg_repos/svn_tracing/tracing/!svn/ver/5531/Projects/bigdata_modeling/cofluent/Impala/simulator_input/log_analysis/getInstanceInfo.py
+END
+getStructInfo.py
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/ssg_repos/svn_tracing/tracing/!svn/ver/5491/Projects/bigdata_modeling/cofluent/Impala/simulator_input/log_analysis/getStructInfo.py
+END
+getLineInfo.py
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/ssg_repos/svn_tracing/tracing/!svn/ver/5445/Projects/bigdata_modeling/cofluent/Impala/simulator_input/log_analysis/getLineInfo.py
+END
+class_log.py
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/ssg_repos/svn_tracing/tracing/!svn/ver/5514/Projects/bigdata_modeling/cofluent/Impala/simulator_input/log_analysis/class_log.py
+END

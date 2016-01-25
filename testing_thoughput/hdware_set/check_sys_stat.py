@@ -1,9 +1,9 @@
 import os
-from config import local_config_testing
+from config import local_config
 
 class check_sys_state:
     def __init__(self):
-        self.impalad_nodes = local_config_testing()['impalad_nodes']
+        self.impalad_nodes = local_config()['impalad_nodes']
     
     def check_sys_io(self):
         t_flag = True

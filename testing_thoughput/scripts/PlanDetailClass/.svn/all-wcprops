@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/ssg_repos/svn_tracing/tracing/!svn/ver/5497/Projects/bigdata_modeling/cofluent/Impala/simulator_input/PlanDetailClass
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/ssg_repos/svn_tracing/tracing/!svn/ver/5445/Projects/bigdata_modeling/cofluent/Impala/simulator_input/PlanDetailClass/__init__.py
+END
+Plannode.py
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/ssg_repos/svn_tracing/tracing/!svn/ver/5497/Projects/bigdata_modeling/cofluent/Impala/simulator_input/PlanDetailClass/Plannode.py
+END
+Fragment.py
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/ssg_repos/svn_tracing/tracing/!svn/ver/5445/Projects/bigdata_modeling/cofluent/Impala/simulator_input/PlanDetailClass/Fragment.py
+END

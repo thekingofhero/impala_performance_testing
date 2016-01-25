@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/ssg_repos/svn_tracing/tracing/!svn/ver/5688/Projects/bigdata_modeling/cofluent/Impala/simulator_input/benchmark
+END
+config.template
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/ssg_repos/svn_tracing/tracing/!svn/ver/5660/Projects/bigdata_modeling/cofluent/Impala/simulator_input/benchmark/config.template
+END
+benchmark.py
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/ssg_repos/svn_tracing/tracing/!svn/ver/5688/Projects/bigdata_modeling/cofluent/Impala/simulator_input/benchmark/benchmark.py
+END
+config_gen.py
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/ssg_repos/svn_tracing/tracing/!svn/ver/5688/Projects/bigdata_modeling/cofluent/Impala/simulator_input/benchmark/config_gen.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/ssg_repos/svn_tracing/tracing/!svn/ver/5638/Projects/bigdata_modeling/cofluent/Impala/simulator_input/benchmark/__init__.py
+END
+clean.py
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/ssg_repos/svn_tracing/tracing/!svn/ver/5638/Projects/bigdata_modeling/cofluent/Impala/simulator_input/benchmark/clean.py
+END
+template.params
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/ssg_repos/svn_tracing/tracing/!svn/ver/5688/Projects/bigdata_modeling/cofluent/Impala/simulator_input/benchmark/template.params
+END
