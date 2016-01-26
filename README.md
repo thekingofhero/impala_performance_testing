@@ -7,7 +7,7 @@
     整体上分为三个部分：数据生成(data_generator) / 性能测试（performance_testing）/测试结果保存<br>
     performance_testing又分为两种方式：query_onebyone：同一时刻，在impala上只执行一个query，用于研究不同硬件/软件参数对impala执行效率的影响。<br>
     query_throughput（独立运行，尚未整合至本工程）:同一时刻，在impala上执行多个query，在一段时间后，统计执行完成的query个数，以确定impala的并发性能。<br>
-  测试结果保存：测试结果导出到excel供临时分析<br>
+    测试结果保存：测试结果导出到excel供临时分析<br>
                 测试结果导入RDBMS 持久化保存<br>
   
 ##2.模块说明：
