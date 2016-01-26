@@ -8,6 +8,11 @@ import distinct_user
 from multiprocessing import *
 import time
 
+def clear_cache():
+    for host in self.impalad_nodes:
+        cmd = "ssh %s 'free && sync && echo 3 >/proc/sys/vm/drop_caches && free'"%(host)
+        os.system(cmd)
+
 def collect_result(log_dir):
     result = ''
     for root,dir,files in os.walk(log_dir):
@@ -35,9 +40,8 @@ def main():
             #init & start consumer
             base_log_dir = os.path.join(log_dir,''.join(['user_number=',str(user_number)]))
             user_list = []
-            os.system("./clear_cache.sh")
+            clear_cache()
 
-            #os.system("./clear_cache.sh")
             for i in xrange(user_number):
                 u = Process(target=distinct_user.user, args = [i,base_log_dir,logging])
                 user_list.append(u)

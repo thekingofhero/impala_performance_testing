@@ -8,25 +8,6 @@ from utilities.postgres import mydb
 
 def create_admin_tbl(datetime_now):
     mydb1 = mydb(postgres_db_connector)
-    #create admin tbl
-    sql_create = """
-            CREATE TABLE IF NOT EXISTS admin_control
-            (
-                id serial,
-                tbl_name text,
-                scale_factor integer,
-                db_format text,
-                database_name text,
-                test_case text,
-                global_config text,
-                local_config_gen text,
-                local_config_testing text,
-                comment text, --CDH/impala version .etc
-                constraint admin_contorl_pkey primary key (id)
-            )
-    """
-    mydb1.runsql(sql_create)
-    mydb1.commit()
     #insert admin tbl
     sql_insert = """
             insert into admin_control(tbl_name,scale_factor,db_format,database_name,test_case,global_config,local_config_gen,local_config_testing)
@@ -35,7 +16,7 @@ def create_admin_tbl(datetime_now):
             local_config_testing()['tpcds_scale_factor'],
             str(local_config_testing()['db_format']).replace("'","''"),
             local_config_testing()['DATABASE_NAME'],
-            '|'.join(local_config_testing()['test_case']),
+            '|'.join(local_config_testing()['test_case_list']),
           str(global_config).replace("'","''"),
           str(local_config_gen()).replace("'","''"),
           str(local_config_testing()).replace("'","''"))
@@ -65,6 +46,7 @@ def testing_onebyone():
             test_obj = testing.TestingClassDict[test_case](logging,datetime_now)
             test_obj.run_testing()
             test_obj.create_tbl()
+            test_obj.close_db()
             test_obj.get_fastest()
             test_obj.write_to_excel(ex_wb)
     ex_wb.save()

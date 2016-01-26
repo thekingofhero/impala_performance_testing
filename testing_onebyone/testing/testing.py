@@ -21,7 +21,9 @@ class testing:
     
     def init_db(self):
         self.mydb1 = mydb(postgres_db_connector)
-        
+
+    def close_db(self):    
+        self.mydb1.close()
 
     def clear_cache(self):
         for host in self.impalad_nodes:
