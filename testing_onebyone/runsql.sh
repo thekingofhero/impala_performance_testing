@@ -68,6 +68,9 @@ echo "nmon log directory: ${NMON_LOG_DIRECTORY}"
 echo "start executing query"
 impala-shell -i "${IMPALA_SERVER}:21000" -d ${DATABASE_NAME} -f $QUERY_DIRECTORY/${QUERY_NAME} &> $PROFILE_LOG_DIRECTORY/${QUERY_NAME}.log
 echo "output folder location: ${EXECUTION_OUTPUT_DIRECTORY}"
+EXECUTION_TIME=`cat $PROFILE_LOG_DIRECTORY/${QUERY_NAME}.log | grep Fetched`
+TIMELINE=`cat $PROFILE_LOG_DIRECTORY/${QUERY_NAME}.log | grep 'Query Timeline'`
+RemoteFragmentStarted=`cat $PROFILE_LOG_DIRECTORY/${QUERY_NAME}.log | grep 'Remote fragments started'`
 echo "CURRENT_TIMESTAMP:${CURRENT_TIMESTAMP}"
 echo "execution result1 -> $QUERY_NAME;$TIMELINE"
 echo "execution result2 -> $QUERY_NAME;$RemoteFragmentStarted"

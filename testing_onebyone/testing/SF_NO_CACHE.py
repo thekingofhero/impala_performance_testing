@@ -14,23 +14,6 @@ class SF_NO_CACHE(testing):
         self.datetime_now = datetime_now
     
     def create_tbl(self):
-        #create admin tbl
-        sql_create = """
-                CREATE TABLE IF NOT EXISTS admin_control
-                (
-                    id serial,
-                    tbl_name text,
-                    global_config text,
-                    local_config_gen text,
-                    local_config_testing text
-                )
-        """
-        self.mydb1.runsql(sql_create)
-        self.mydb1.commit()
-        #insert admin tbl
-        sql_insert = """
-                insert into 
-        """
         #create
         sql_create =  """
                 DROP TABLE IF EXISTS %s;
@@ -49,7 +32,6 @@ class SF_NO_CACHE(testing):
         self.mydb1.commit()
 
         #insert
-        print self.insert_queue
         if len(self.insert_queue) > 0:
             sql_insert = ';'.join(self.insert_queue)
             self.mydb1.runsql(sql_insert)
@@ -97,16 +79,17 @@ class SF_NO_CACHE(testing):
                         fp = os.popen(cmd,'r')
                         lines_list = fp.readlines()
                         try:
-                            print(cmd)
                             time_stamp = lines_list[-3].split(':')[-1].strip('\n')
                             time_line = get_time_by_second(lines_list[-2].split(' ')[-1])
                             remote_start_time = get_time_by_second((lines_list[-1].split(' ')[-2]).strip('\n'))
                             query_run_time = time_line - remote_start_time
                             self.des_dic[query][cpufreq].append([query_run_time,time_line,remote_start_time,time_stamp])
-                            sql = "insert into tbl(query_name,time_stamp,query_run_time,time_line,remote_start_time)\
-                                    values(%s,%d,%s,%s,%s)"%(query_name,int(time_stamp),query_run_time,time_line,remote_start_time)
+                            sql = """insert into %s(query_name,time_stamp,query_run_time,time_line,remote_start_time)
+                                    values('%s',%d,'%s','%s','%s')"""%(self.datetime_now.replace('-','_'),query,int(time_stamp),query_run_time,time_line,remote_start_time)
                             self.insert_queue.append(sql)
                         except Exception :
+                            import traceback
+                            traceback.print_exc()
                             print ''.join(str_i for str_i in lines_list)
                         self.logging.info('"cpu_freq:%s---%s %s %s %s %s" has been finished in %ss!time_stamp is %s'%(str(cpufreq)\
                                                         ,self.sh_path\

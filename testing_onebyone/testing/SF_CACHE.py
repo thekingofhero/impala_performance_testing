@@ -1,30 +1,58 @@
 from config import local_config_testing
-from hdware_set.cpufreq_set import CPUFreqSet
-from hdware_set.check_sys_stat import check_sys_state
 from utilities.time_trans import get_time_by_second 
-from utilities.to_cache_bigtables import to_cache,un_cache
+from utilities.to_cache import to_cache,un_cache
 import datetime
 import os
 
-class SF_CACHE:
+class SF_CACHE(testing):
     def __init__(self,logging,datetime_now):
-        self.impalad_nodes = local_config_testing()['impalad_nodes']
-        self.cpufreq_range = local_config_testing()['CPUFreq_range']
-        self.query_list = local_config_testing()['query_list']
-        self.query_dir = local_config_testing()['query_dir']
-        self.every_query_times = local_config_testing()['every_query_times']
-        self.impala_server = local_config_testing()['IMPALA_SERVER']
-        self.database_name = local_config_testing()['DATABASE_NAME']
-        self.sh_path = os.path.join(local_config_testing()['cur_path'],'queries','runsql.sh')
+        testing.__init__(self)
         self.profile_path = os.path.join(local_config_testing()['cur_path'],'queries/logs/%s'%(datetime_now))
-        self.network = local_config_testing()['net_work']
-        self.des_dic = {}
-        self.CPUFreqSet_OBJ = CPUFreqSet()
-        self.check_sys_state_obj = check_sys_state()
         self.logging = logging
-        
+        self.insert_queue = []
+        self.init_db()
+        self.datetime_now = datetime_now
+
+    def create_tbl(self):
+        #create
+        sql_create =  """
+                DROP TABLE IF EXISTS %s;
+                CREATE TABLE %s
+                (
+                    id serial,
+                    query_name text,
+                    time_stamp bigint,
+                    query_run_time text,
+                    time_line text,
+                    remote_start_time text,
+                    constraint %s_pkey primary key (id)
+                );
+        """%((self.datetime_now.replace('-','_'),)*3)
+        self.mydb1.runsql(sql_create)
+        self.mydb1.commit()
+
+        #insert
+        if len(self.insert_queue) > 0:
+            sql_insert = ';'.join(self.insert_queue)
+            self.mydb1.runsql(sql_insert)
+            self.mydb1.commit()
+
+        #create index
+        sql_index = """
+                DROP INDEX IF EXISTS %s_id_idx;
+                CREATE INDEX %s_id_idx
+                ON %s
+                USING BTREE
+                (id)
+        """%((self.datetime_now.replace('-','_'),)*3)
+        self.mydb1.runsql(sql_index)
+
 
     def run_testing(self):
+        sum_task = len(self.query_list) * len(self.cpufreq_range) * self.every_query_times
+        cur_task = 0
+        with open(os.path.join(self.profile_path,'PROCESSING'),'w') as fp:
+             fp.write('%s%%'%(str(float(cur_task)/float(sum_task)*100)))
         for query in self.query_list:
             if query in ('ss_max.sql','q59.sql','q46.sql','q36.sql'):
                 continue
@@ -36,6 +64,7 @@ class SF_CACHE:
                     self.CPUFreqSet_OBJ.set(cpufreq)
                     self.des_dic[query][cpufreq] = []
                 for i in range(self.every_query_times):
+                    self.clear_cache()
                     if self.check_sys_state_obj.check_sys_io():
                         self.logging.info('"cpu_freq:%s---%s %s %s %s %s" has been started...'%(str(cpufreq)\
                                                         ,self.sh_path\
@@ -59,7 +88,12 @@ class SF_CACHE:
                             remote_start_time = get_time_by_second((lines_list[-1].split(' ')[-2]).strip('\n'))
                             query_run_time = time_line - remote_start_time
                             self.des_dic[query][cpufreq].append([query_run_time,time_line,remote_start_time,time_stamp])
+                            sql = """insert into %s(query_name,time_stamp,query_run_time,time_line,remote_start_time)
+                                    values('%s',%d,'%s','%s','%s')"""%(self.datetime_now.replace('-','_'),query,int(time_stamp),query_run_time,time_line,remote_start_time)
+                            self.insert_queue.append(sql)
                         except Exception :
+                            import traceback
+                            traceback.print_exc()
                             print ''.join(str_i for str_i in lines_list)
                         self.logging.info('"cpu_freq:%s---%s %s %s %s %s" has been finished in %ss!time_stamp is %s'%(str(cpufreq)\
                                                         ,self.sh_path\
@@ -70,6 +104,9 @@ class SF_CACHE:
                                                         ,str([query_run_time,time_line,remote_start_time])\
                                                         ,time_stamp))
                         fp.close()
+                        cur_task += 1 
+                        with open(os.path.join(self.profile_path,'PROCESSING'),'w') as fp:
+                            fp.write('%s%%'%(str(float(cur_task)/float(sum_task)*100)))
                 self.des_dic[query][cpufreq].sort()
             un_cache()    
         return self.des_dic
